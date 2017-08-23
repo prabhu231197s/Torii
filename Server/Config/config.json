@@ -1,0 +1,12 @@
+{
+  "yinDb": {
+    "host" : "localhost",
+    "port" : 3306,
+    "username" : "root",
+    "password" : "admin@123",
+    "database" : "yin"
+  },
+  "Torii" : {
+    "port" : 1111
+  }
+}

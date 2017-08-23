@@ -1,0 +1,7 @@
+{
+  "queries":{
+    "registerQuery" : "INSERT into Users set ?",
+    "mapTokenQuery" : "INSERT into UserTokenMap set ?",
+    "findByMailQuery" : "SELECT * from ?? where Email = ?"
+  }
+}
