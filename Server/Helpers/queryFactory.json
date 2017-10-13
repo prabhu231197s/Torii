@@ -2,6 +2,7 @@
   "queries":{
     "registerQuery" : "INSERT into Users set ?",
     "mapTokenQuery" : "INSERT into UserTokenMap set ?",
-    "findByMailQuery" : "SELECT * from ?? where Email = ?"
+    "findByMailQuery" : "SELECT * from ?? where Email = ?",
+    "findToken" : "SELECT Token from UserTokenMap where Email = ?"
   }
 }

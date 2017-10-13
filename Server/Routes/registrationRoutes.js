@@ -17,5 +17,10 @@
         registrationController.resendToken(req,res);
     });
 
+    router.post('/user/verifyToken',function(req,res){
+        registrationController.verify(req,res);
+    });
+
+
     module.exports = router;
 })();

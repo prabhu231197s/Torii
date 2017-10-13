@@ -1,14 +1,15 @@
 (function(){
     var responseHandler = {
         response : function(res,response){
-            var response = {
+            /*var response = {
                 "statusCode" : 200,
                 "response" : response
-            }
+            };*/
             var data = {
-                "response" : response,
+                "statusCode" : 200,
+                "response" : response[0],
                 "message" : "Success"
-            }
+            };
             res.status(200).json(data);
         },
         error : function(res,error){

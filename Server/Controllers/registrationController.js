@@ -12,7 +12,7 @@
                 }
                 else{
                     if(req.body!==undefined && req.body.userData!==undefined){
-                        console.log("1");
+                        console.log(req.body);
                         registrationService.registerUser(req.body.userData,function(err,data){
                             if(err){
                                 transactionHandler.rollbackHandler(res,err);
@@ -30,7 +30,7 @@
                                                 transactionHandler.rollbackHandler(res,err);
                                             }
                                             else{
-                                                registrationService.mapToken(tokenData,function(err,data){
+                                                registrationService.mapToken(tokenData,req.body.userData.Email,function(err,data){
                                                     if(err){
                                                         console.log(err + "4");
                                                         transactionHandler.rollbackHandler(res,err);
@@ -73,6 +73,40 @@
                         }
                     }
                 });
+            }
+        }
+        catch(err){
+            responseHandler.error(res,err);
+        }
+    };
+
+    module.exports.verify = function(req,res){
+        try{
+            if(req.body){
+                registrationService.verify(req.body,function(err,data){
+                    if(err){
+                        responseHandler.error(res,err);
+                    }
+                    else{
+                        console.log(data);
+                        if(data === 1){
+                            registrationService.unblockUser(req.body.email,function(err,data){
+                                if(err){
+                                    responseHandler.error(res,err);
+                                }
+                                else{
+                                    responseHandler.response(res,data);
+                                }
+                            });
+                        }
+                        else{
+                            responseHandler.error(res,{message:"Token Mismatch",status:541});
+                        }
+                    }
+                });
+            }
+            else{
+                responseHandler.error(res,{message:"Invalid Post body",statusCode:500});
             }
         }
         catch(err){
