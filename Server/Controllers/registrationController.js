@@ -11,9 +11,9 @@
                     responseHandler.error(res,err);
                 }
                 else{
-                    if(req.body!==undefined && req.body.userData!==undefined){
+                    if(req.body!==undefined && req.body!==undefined){
                         console.log(req.body);
-                        registrationService.registerUser(req.body.userData,function(err,data){
+                        registrationService.registerUser(req.body,function(err,data){
                             if(err){
                                 transactionHandler.rollbackHandler(res,err);
                             }
@@ -24,13 +24,13 @@
                                         transactionHandler.rollbackHandler(res,err);
                                     }
                                     else{
-                                        console.log(req.body.userData.Email);
-                                        commonService.sendMail(token,req.body.userData.Email,function(err,tokenData){
+                                        console.log(req.body.Email);
+                                        commonService.sendMail(token,req.body.Email,function(err,tokenData){
                                             if(err){
                                                 transactionHandler.rollbackHandler(res,err);
                                             }
                                             else{
-                                                registrationService.mapToken(tokenData,req.body.userData.Email,function(err,data){
+                                                registrationService.mapToken(tokenData,req.body.Email,function(err,data){
                                                     if(err){
                                                         console.log(err + "4");
                                                         transactionHandler.rollbackHandler(res,err);
@@ -66,7 +66,14 @@
                     }
                     else{
                         if(data[0]){
-                            responseHandler.response(res,data);
+                            commonService.sendMail(data[0].Token,data[0].Email,function(err,data){
+                                if(err){
+                                    responseHandler.error(res,err);
+                                }
+                                else{
+                                    responseHandler.response(res,data);
+                                }
+                            });
                         }
                         else{
                             responseHandler.error(res,{message:"User not yet registered",statusCode:420});

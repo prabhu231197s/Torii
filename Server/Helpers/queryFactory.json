@@ -3,6 +3,8 @@
     "registerQuery" : "INSERT into Users set ?",
     "mapTokenQuery" : "INSERT into UserTokenMap set ?",
     "findByMailQuery" : "SELECT * from ?? where Email = ?",
-    "findToken" : "SELECT Token from UserTokenMap where Email = ?"
+    "findToken" : "SELECT Token from UserTokenMap where Email = ?",
+    "getEvents" : "SELECT e.EventId as EventId,e.EventName as EventName,e.Division as DivisionId,d.Name as DivisionName,e.Category as CategoryId,c.Category as CategoryName from Events e join Categories c on c.CategoryId=e.Category join Divisions d on e.Division=d.DivisionId where e.status=0;",
+    "getClosedEvent" : "SELECT e.EventId as EventId,e.EventName as EventName,e.Division as DivisionId,d.Name as DivisionName,e.Category as CategoryId,c.Category as CategoryName from Events e join Categories c on c.CategoryId=e.Category join Divisions d on e.Division=d.DivisionId where e.status=1;"
   }
 }

@@ -7,7 +7,7 @@
             };*/
             var data = {
                 "statusCode" : 200,
-                "response" : response[0],
+                "response" : response,
                 "message" : "Success"
             };
             res.status(200).json(data);

@@ -67,10 +67,15 @@
                     callback(err,null);
                 }
                 else{
-                    console.log(data[0].Token);
-                    registrationService.checkToken(data[0].Token,body.token,function(err,data){
-                        callback(err,data);
-                    });
+                    if(data[0]) {
+                        console.log(data[0].Token);
+                        registrationService.checkToken(data[0].Token, body.token, function (err, data) {
+                            callback(err, data);
+                        });
+                    }
+                    else{
+                        callback({message:"User does not exist",statusCode:501});
+                    }
                 }
             });
         }
