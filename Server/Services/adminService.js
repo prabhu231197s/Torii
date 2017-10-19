@@ -24,4 +24,8 @@
         adminDao.getParticipantsForEvent(details,callback);
     };
 
+    module.exports.updateMoney = function(d,userid,callback){
+        adminDao.updateMoney(d,userid,callback);
+    };
+
 })();

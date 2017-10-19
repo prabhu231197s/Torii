@@ -46,5 +46,13 @@
         userController.getBalance(req,res);
     });
 
+    router.get('/user/myEvents',function(req,res){
+        userController.myEvents(req,res);
+    });
+
+    router.post('/user/postFeedback',function (req, res) {
+        userController.feedback(req,res);
+    });
+
     module.exports = router;
 })();

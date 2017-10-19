@@ -86,4 +86,15 @@
             callback(err);
         }
     };
+    module.exports.updateMoney = function(d,userid,callback){
+        try{
+            var q = "UPDATE Users set Ecash = ? where UserId=?";
+            connection.query(q,[d,userid],function (err, data) {
+                callback(err,data);
+            });
+        }
+        catch (err){
+            callback(err);
+        }
+    };
 })();

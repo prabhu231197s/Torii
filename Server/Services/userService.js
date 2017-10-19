@@ -52,6 +52,16 @@
         userDao.getBalance(userId,callback);
     };
 
-    module.exports.update
+    module.exports.updateMoney = function(money,userId,callback){
+        userDao.updateMoney(money,userId,callback);
+    };
+
+    module.exports.getMyEvents = function(userId,callback){
+        userDao.getMyEvents(userId,callback);
+    };
+
+    module.exports.feedback = function(body,callback){
+        userDao.feedback(body,callback);
+    };
 
 })();

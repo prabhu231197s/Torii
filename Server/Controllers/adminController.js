@@ -7,6 +7,7 @@
     var transactionHandler = require('../Helpers/transactionHandler');
     var adminService = require('../Services/adminService');
     var transformer = require('../Models/commonModel');
+    var userService = require('../Services/userService');
 
     module.exports.approveRegistration = function (req, res) {
         try {
@@ -26,7 +27,21 @@
                                         transactionHandler.rollbackHandler(res,err);
                                     }
                                     else{
-                                        transactionHandler.commitHandler(res,{message:"Registration approved"});
+                                        userService.getBalance(req.body.UserId,function(err,data){
+                                            if(err){
+                                                transactionHandler.rollbackHandler(res,err);
+                                            }
+                                            else{
+                                                var d = data-(1000*req.body.Events.length);
+                                                adminService.updateMoney(d,req.body.UserId,function(err,data){
+                                                    if(err){
+                                                        transactionHandler.rollbackHandler(res,err);
+                                                    }
+                                                    else{
+                                                        transactionHandler.commitHandler(res,{message:"Registration approved"});                                                    }
+                                                })
+                                            }
+                                        });
                                     }
                                 });
                             }

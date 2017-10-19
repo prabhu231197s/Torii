@@ -191,18 +191,9 @@
                             responseHandler.error(res,err);
                         }
                         else{
-                            data = data-1000;
-                            userService.updateMoney(data,function(err,response){
-                                if(err){
-                                    responseHandler.error(res,err);
-                                }
-                                else{
-                                    responseHandler.response(res,response);
-                                }
-                            });
+                            responseHandler.response(res,data);
                         }
                     });
-                    responseHandler.response(res,data);
                 }
             });
         }
@@ -224,6 +215,43 @@
         }
         catch(err){
 
+        }
+    };
+
+    module.exports.myEvents = function(req,res){
+        try{
+            userService.getMyEvents(req.query.UserId,function(err,data){
+                if(err){
+                    responseHandler.error(res,err);
+                }
+                else{
+                    responseHandler.response(res,data);
+                }
+            });
+        }
+        catch(err){
+            responseHandler.error(res,err);
+        }
+    };
+
+    module.exports.feedback = function (req, res) {
+        try{
+            if(!req.body){
+                responseHandler.error(res,{message:"Empty body"});
+            }
+            else{
+                userService.feedback(req.body,function (err, data) {
+                    if(err){
+                        responseHandler.error(res,err);
+                    }
+                    else {
+                        responseHandler.response(res,data);
+                    }
+                });
+            }
+        }
+        catch(err){
+            responseHandler.error(res,err);
         }
     };
 

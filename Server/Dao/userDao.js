@@ -78,10 +78,7 @@
                    callback(err);
                }
                else{
-                   if(data.length>0){
-                       callback({message:"User already registered"});
-                   }
-                   else{
+
                        var query = "SELECT EventId from Events where Division=? and Category=? and EventName="+'"'+details.Event+'"';
                        console.log(query);
                        connection.query(query,[details.Division,details.Category],function(err,data){
@@ -100,7 +97,7 @@
                                });
                            }
                        });
-                   }
+
                }
             });
         }
@@ -219,5 +216,41 @@
             callback(err);
         }
     };
+
+    module.exports.updateMoney = function(cash,userid,callback){
+        try{
+            var q = "UPDATE Users set Ecash="+cash+" where UserId="+userid;
+            connection.query(q,function (err, data) {
+                callback(err,data);
+            })
+        }
+        catch(err){
+            callback(err);
+        }
+    };
+
+    module.exports.getMyEvents = function(userId,callback){
+        try{
+            var query = "select e.EventId,e.EventName from UserEventMap u join Users us join Events e on us.UserId=u.UserId and e.EventId=u.EventId where u.UserId=? and u.Approved=1";
+            connection.query(query,userId,function(err,data){
+                callback(err,data);
+            });
+        }
+        catch(err){
+            callback(err);
+        }
+    };
+
+    module.exports.feedback = function (body, callback) {
+        try{
+            var query = "INSERT into Feedbacks set ?";
+            connection.query(query,body,function (err, data) {
+                callback(err,data);
+            });
+        }
+        catch(err){
+            callback(err);
+        }
+    }
 
 })();
