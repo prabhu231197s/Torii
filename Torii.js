@@ -10,6 +10,7 @@
     var logger = require('morgan');
     var config = require('./Server/Config/config.json');
     var connection = require('./Server/Config/dbConfig');
+    var path = require('path');
 
 //------------------Middleware-----------------------//
 
@@ -17,6 +18,7 @@
     app.use(logger('dev'));
     app.use(bodyParser.json({limit: '50mb'}));
     app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
+    app.use('/res',express.static(path.resolve("Server/Content/Malare.mp3")));
 
     var routes = require('./Server/index')(app);
     app.listen(config.Torii.port);

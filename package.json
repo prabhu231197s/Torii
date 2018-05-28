@@ -20,6 +20,8 @@
     "express-fileupload": "^0.1.3",
     "express-mysql-session": "^1.2.0",
     "express-session": "^1.15.2",
+    "faker": "^4.1.0",
+    "formidable": "^1.2.1",
     "fs": "0.0.1-security",
     "jwt-simple": "^0.5.1",
     "knex": "^0.13.0",
