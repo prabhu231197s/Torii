@@ -46,25 +46,7 @@
     router.get('/fake',function (req, res) {
         console.log(faker.address.latitude());
         var id = 1;
-        var data = [];
-        for(id=1;id<=10000;id++){
-            var obj = {};
-            obj.id = id;
-            obj.firstname = faker.name.firstName();
-            obj.lastname = faker.name.lastName();
-            obj.latitude = parseFloat(faker.address.latitude());
-            obj.longitude = parseFloat(faker.address.longitude());
-            obj.email = faker.internet.email();
-            obj.message = faker.lorem.paragraph();
-            obj.media = [];
-            if(id===1) {
-                obj.media.push({url: "https://www.youtube.com/watch?v=DdJyVkG-4C8", type: "video"});
-                obj.media.push({url:"http://localhost:1111/res",type:"audio"});
-            }
-            obj.media.push({url:faker.image.imageUrl(),type:"image"});
-            obj.media.push({url:faker.image.imageUrl(),type:"image"});
-            data.push(obj);
-        }
+        var data = require('../data.json');
         res.json(data);
     });
 
